@@ -1,0 +1,10 @@
+body{
+    padding-left:33%;
+    padding-top: 100px;
+    padding-right:33%;
+}
+.form{
+    display:block;
+    border:2px solid black;
+    padding: 20px;
+}
