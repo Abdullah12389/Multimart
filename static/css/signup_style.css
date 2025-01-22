@@ -1,0 +1,53 @@
+form{
+    display:flex;
+    flex-direction: column;
+    width:400px;
+    height:350px;
+    border:2px solid black;
+    padding: 20px;
+    margin:auto;
+    border-radius: 20px;
+    margin-top: 10%;
+    background: hsla(214, 85%, 5%, 0.3); 
+}
+.form{
+    margin-bottom: 4px;
+}
+input{
+    border-radius: 7px;
+}
+button{
+    border-radius: 10px;
+    width:70px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-image: linear-gradient(rgb(243, 126, 126),rgb(0, 68, 128));
+}
+body{
+    background: linear-gradient(90deg, aqua, blue, yellow, red, pink, orange);
+    background-size: 200% 200%;
+    animation:hello 20s infinite;
+}
+@keyframes hello{
+    0% {
+        background-position: 0% 0%; /* Start position */
+        background-size: 150% 200%; /* Initial size */
+    }
+    25% {
+        background-position: 50% 25%; /* Stream flows diagonally */
+        background-size: 160% 220%; /* Gradual expansion */
+    }
+    50% {
+        background-position: 100% 50%; /* Moves to the right-center */
+        background-size: 180% 200%; /* Further expansion */
+    }
+    75% {
+        background-position: 50% 75%; /* Stream flows back diagonally */
+        background-size: 160% 180%; /* Shrink a bit */
+    }
+    100% {
+        background-position: 0% 100%; /* Loop back to the start */
+        background-size: 150% 200%; /* Reset size */
+    }
+}

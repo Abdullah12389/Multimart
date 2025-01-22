@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="product_style.css">
 </head>
 <body>
-    <div class="search">
-        <input type="text" placeholder="Search">
-    </div>
+    <input type="search" class="bar" placeholder="search">
     <div class="header">
-        <h3 type="heading">Category</h3>
         <div class="category">Clothes</div>
         <div class="category">Vehicles</div>
         <div class="category">Costmetics</div>
         <div class="category">Shoes</div>
         <div class="category">Grocery</div>
-        <div class="category">h</div>
-        <div class="category">i</div>
-        <div class="category">j</div>
-        <div class="category">k</div>
-        <div class="category">l</div>
+        <div class="category">Electronic</div>
+        <div class="category">Sports</div>
+        <div class="category">LifeStyle</div>
+        <div class="category">Jewlery</div>
+        <div class="category">Electronic</div>
+        <div class="category">Sports</div>
+        <div class="category">LifeStyle</div>
+        <div class="category">Jewlery</div>
     </div>
     <div class="search_results"></div>
     <div class="filters">
@@ -39,6 +39,12 @@
             <option value="1" class="star">1</option>
         </select>
     </div>
-    <div class="section"></div>
+    <div class="Products">
+        <div class="Product">
+            {% for product in products %}
+            <img src="static/images/{}" alt="">
+
+        </div>
+    </div>
 </body>
 </html>

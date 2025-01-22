@@ -1,0 +1,28 @@
+.header{
+    display:flex;
+    justify-content: space-between;
+    overflow-x: scroll;
+    scrollbar-width: 2px;
+}
+.header::-webkit-scrollbar{
+    max-width: 0px;
+}
+.category{
+    border:2px solid black;
+    width:100px;
+    height:50px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 20px;
+    margin:10px;
+}
+.category:hover{
+    background-color: aqua;
+}
+.bar{
+    width: 700px;
+    height: 50px;
+    margin-left:22%;
+    font-size: large;
+}
+

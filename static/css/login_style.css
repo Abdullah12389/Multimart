@@ -1,0 +1,37 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    border:5px solid green;
+    border-radius: 20px;
+    padding: 20px;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    margin-top: 10%;
+    background-color: hsla(214, 85%, 5%, 0.3);
+
+}
+.element{
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: beige;
+}
+h1{
+    text-align: center;
+}
+button{
+    width: 70px;
+    height: 40px;
+    margin: auto;
+    background-image: linear-gradient(160deg,rgb(195, 146, 56),rgb(115, 115, 217));
+}
+button:hover{
+    background-image: linear-gradient(160deg,rgb(235, 177, 68),rgb(82, 82, 238));
+    margin-bottom: 13px;
+    box-shadow: inset;
+}
+body{
+    background-image: url("login.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
