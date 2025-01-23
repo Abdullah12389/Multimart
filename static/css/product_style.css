@@ -19,10 +19,29 @@
 .category:hover{
     background-color: aqua;
 }
+.head{
+    display: flex;
+    justify-content: space-between;
+}
 .bar{
-    width: 700px;
+    width: 400px;
     height: 50px;
-    margin-left:22%;
-    font-size: large;
+    font-size: 20px;
+}
+.but{
+    height: 30px;
+    border-radius: 10px;
+    background-image: linear-gradient(orange,pink);
+}
+.but:active{
+    box-shadow: 20px;
+    background-image: linear-gradient(pink,orange);           
+}
+.Products{
+    display: flex;
+    flex-wrap: wrap;
+}
+.Product{
+    margin: 20px;
 }
 

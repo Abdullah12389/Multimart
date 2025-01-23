@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=.0">
     <title>Multimart</title>
-    <link rel="stylesheet" href="product_style.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/product_style.css')}}">
 </head>
 <body>
-    <input type="search" class="bar" placeholder="search">
+    <div class="head">
+        <div></div>
+        <input type="search" class="bar" placeholder="&#x1F50E;search">
+            <form action="/sign_up" method="get">
+        <button type="submit" class="but">Sign UP</button>
+        </form>
+    </div>
     <div class="header">
         <div class="category">Clothes</div>
         <div class="category">Vehicles</div>
@@ -40,11 +46,13 @@
         </select>
     </div>
     <div class="Products">
+        {% for product in products %}
         <div class="Product">
-            {% for product in products %}
-            <img src="static/images/{}" alt="">
-
+            <img src="{{product[2]}}" alt="img" width="250px" height="250px">
+            <p>{{product[0]}}</p>
+            <p>{{product[1]}}</p>
         </div>
+        {%endfor%}
     </div>
 </body>
 </html>

@@ -14,7 +14,6 @@
 .element{
     margin-bottom: 10px;
     border-radius: 10px;
-    color: beige;
 }
 h1{
     text-align: center;
@@ -31,7 +30,7 @@ button:hover{
     box-shadow: inset;
 }
 body{
-    background-image: url("login.jpg");
+    background-image: url("../images/login.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
 }
