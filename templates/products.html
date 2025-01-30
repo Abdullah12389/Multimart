@@ -5,15 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=.0">
     <title>Multimart</title>
     <link rel="stylesheet" href="{{url_for('static',filename='css/product_style.css')}}">
+    <style>
+        .header{
+        display:flex;
+        justify-content: space-between;
+        overflow-x: scroll;
+        scrollbar-width: 2px;
+        }
+        .header::-webkit-scrollbar{
+        max-width: 0px;
+        }
+        .category{
+        border:2px solid black;
+        width:100px;
+        height:50px;
+        border-radius: 20px;
+        text-align: center;
+        padding: 20px;
+        margin:10px;
+        }
+        .category:hover{
+        background-color: aqua;
+        }
+        .head{
+        display: flex;
+        justify-content: space-between;
+        }
+        #searchBox{
+        width: 400px;
+        height: 50px;
+        font-size: 20px;
+        }
+        #suggestions{
+            width: 400px; height:50px; border: 1px solid #ccc; display: none; position: absolute; background: white;
+            margin-left: 515px;
+            font-size: large;
+        }
+        .but{
+        height: 30px;
+        border-radius: 10px;
+        background-image: linear-gradient(orange,pink);
+        }
+        .but:active{
+        box-shadow: 20px;
+        background-image: linear-gradient(pink,orange);           
+        }
+        .Products{
+        display: flex;
+        flex-wrap: wrap;
+        }
+        .Product{
+        margin: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="head">
         <div></div>
-        <input type="search" class="bar" placeholder="&#x1F50E;search">
-            <form action="/sign_up" method="get">
-        <button type="submit" class="but">Sign UP</button>
+        <input type="text" id="searchBox" placeholder="Type something..." autocomplete="off">
+        <form action="/sign_up" method="get">
+            <button type="submit" class="but">Sign UP</button>
         </form>
     </div>
+    <div id="suggestions">hello</div>
+    <script>
+        const searchBox = document.getElementById("searchBox");
+        const suggestionsBox = document.getElementById("suggestions");
+
+        searchBox.addEventListener("input", async function() {
+            const text = searchBox.value.trim();
+            if (!text) {
+                suggestionsBox.style.display = "none";
+                return;
+            }
+
+            // Fetch predictions from Flask API
+            const response = await fetch("/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text }),
+            });
+            const data = await response.json();
+
+            // Show suggestions
+            suggestionsBox.innerHTML = "";
+            if (data.suggestions.length > 0) {
+                data.suggestions.forEach(word => {
+                    const div = document.createElement("div");
+                    div.classList.add("suggestion");
+                    div.innerText = word;
+                    div.onclick = () => {
+                        searchBox.value += " " + word;
+                        suggestionsBox.style.display = "none";
+                    };
+                    suggestionsBox.appendChild(div);
+                });
+                suggestionsBox.style.display = "block";
+            } else {
+                suggestionsBox.style.display = "none";
+            }
+        });
+
+        // Auto-complete when spacebar is pressed
+        searchBox.addEventListener("keydown", function(event) {
+            if (event.key === " " && suggestionsBox.children.length > 0) {
+                searchBox.value += " " + suggestionsBox.children[0].innerText;
+                suggestionsBox.style.display = "none";
+                event.preventDefault();
+            }
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener("click", function(event) {
+            if (!searchBox.contains(event.target)) {
+                suggestionsBox.style.display = "none";
+            }
+        });
+    </script>
     <div class="header">
         <div class="category">Clothes</div>
         <div class="category">Vehicles</div>
@@ -54,5 +162,6 @@
         </div>
         {%endfor%}
     </div>
+    <img src="../static/images/chat.png" alt="chat">
 </body>
 </html>

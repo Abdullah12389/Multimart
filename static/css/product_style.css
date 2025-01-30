@@ -1,47 +1,51 @@
 .header{
-    display:flex;
-    justify-content: space-between;
-    overflow-x: scroll;
-    scrollbar-width: 2px;
+display:flex;
+justify-content: space-between;
+overflow-x: scroll;
+scrollbar-width: 2px;
 }
 .header::-webkit-scrollbar{
-    max-width: 0px;
+max-width: 0px;
 }
 .category{
-    border:2px solid black;
-    width:100px;
-    height:50px;
-    border-radius: 20px;
-    text-align: center;
-    padding: 20px;
-    margin:10px;
+border:2px solid black;
+width:100px;
+height:50px;
+border-radius: 20px;
+text-align: center;
+padding: 20px;
+margin:10px;
 }
 .category:hover{
-    background-color: aqua;
+background-color: aqua;
 }
 .head{
-    display: flex;
-    justify-content: space-between;
+display: flex;
+justify-content: space-between;
 }
-.bar{
-    width: 400px;
-    height: 50px;
-    font-size: 20px;
+#searchBox{
+width: 400px;
+height: 50px;
+font-size: 20px;
+}
+#suggestions{
+    width: 320px; border: 1px solid #ccc; display: none; position: absolute; background: white;
+    margin-left: 600px;
 }
 .but{
-    height: 30px;
-    border-radius: 10px;
-    background-image: linear-gradient(orange,pink);
+height: 30px;
+border-radius: 10px;
+background-image: linear-gradient(orange,pink);
 }
 .but:active{
-    box-shadow: 20px;
-    background-image: linear-gradient(pink,orange);           
+box-shadow: 20px;
+background-image: linear-gradient(pink,orange);           
 }
 .Products{
-    display: flex;
-    flex-wrap: wrap;
+display: flex;
+flex-wrap: wrap;
 }
 .Product{
-    margin: 20px;
+margin: 20px;
 }
 

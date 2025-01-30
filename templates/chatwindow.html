@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with me</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/chatbot.css')}}">
+</head>
+<body>
+    {% if not chat %}
+        <div class="welcome">
+            <h1 id="head">How can I Help You Today</h1>
+        </div>
+    {% else %}
+    <div class="chat_contain">
+        {% for key,value in chat.items() %}
+            <div class="chat">
+                <div class="question">{{key}}</div>
+                <div class="answer">{{value}}</div>
+            </div>
+        {% endfor %}
+    </div>    
+    {% endif %}
+    <form method="post">
+        <input type="text" id="chatbox" name="question">
+        <button type="submit" id="send">>>></button>
+    </form>
+</body>
+</html>

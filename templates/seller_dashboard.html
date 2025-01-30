@@ -4,8 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Dashboard</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/dashboard.css')}}">
 </head>
 <body>
-    
+    <div class="profile">
+        <img src="../static/images/Seller.png" alt="error" width="60px" height="60px">
+        <a href="google.com">Google</a>
+    </div>
+    <form action="/tell" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <input type="submit">
+    </form>
+    <div class="sales">
+        <h3>Sales</h3>
+        <img src="" alt="">
+    </div>
+    <div class="review_stat">
+        <h3>Review Stats</h3>
+        <img src="{{url_for('graph')}}" alt="chart_reviews" width="500px" height="400px">
+    </div>
+    <div class="products">
+        {% for id in ids %}
+        <div class="product">
+        <img src="" alt="" width="250px" height="250px">
+            <h5>{{product[id]["name"]}}</h5>
+            <h5>{{product[id]["category"]}}</h5>
+            <h5>{{product[id]["price"]}}</h5>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>

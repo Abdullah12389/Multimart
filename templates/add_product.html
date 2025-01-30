@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/add_product.css')}}">
+</head>
+<body>
+    <form action="/tell" method="post" enctype="multipart/form-data" class="add">
+        <input type="file" name="image"  class="field" required>
+        <label for="name" class="field">Name</label>
+        <input type="text" id="name" class="field" name="name">
+        <label for="cateory" class="field">Category</label>
+        <input type="text" id="category" class="field" name="category">
+        <label for="description" class="field">Description</label>
+        <textarea id="description" class="field" name="description"></textarea>
+        <label for="price" class="field">Price</label>
+        <input type="text" id="price" name="price">
+        <label for="code" class="field">Product code</label>
+        <input type="text" id="code" class="field">
+        <label for="brand" class="field">Brand</label>
+        <input type="text" for="brand" class="field" name="brand">
+        <button type="submit" class="field">List on store</button>
+    </form>
+</body>
+</html>

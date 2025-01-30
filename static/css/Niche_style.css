@@ -7,7 +7,8 @@ body{
     border:5px solid blueviolet; 
     background-color: aquamarine;
     text-align: center;
-    margin-top: 100px;
+    margin:auto;
+    margin-top:5%;
     width: 500px;
     height:400px;
     border-radius: 20px;
@@ -15,52 +16,25 @@ body{
 .choice{
     display: flex;
     border: 2px solid black;
+    margin: auto;
     background-color: white;
-    margin-left: 35px;
-    align-content: center;
-    justify-content: center;
     width:430px;
     height:280px;
+    justify-content:space-evenly;
 }
 .Customer,.Seller{
-    justify-content: center;
-    align-content: center;
     margin-top: 60px;
     width: 150px;
     height:100px;
     font-size: 30px;
-}
-.Customer{
-    margin-right: 20px;
-}
-.Seller{
-    margin-left: 20px;
 }
 .Seller:hover{
-    margin: 25px;
-    margin-top: 60px;
-    margin-left: 20px;
     opacity:70%;
     border:2px solid green;
-    justify-content: center;
-    align-content: center;
-    width: 150px;
-    height:100px;
-    font-size: 30px;
-    
 }
 .Customer:hover{
-    margin: 25px;
-    margin-top: 60px;
-    margin-right: 20px;
     border:2px solid green;
     opacity:70%;
-    justify-content: center;
-    align-content: center;
-    width: 150px;
-    height:100px;
-    font-size: 30px;
-    
 }
 h3{
     margin:0%;

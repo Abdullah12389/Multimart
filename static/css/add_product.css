@@ -1,0 +1,25 @@
+.add{
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+    width:400px;
+    height:500px;
+    padding:20px;
+    padding-top: 20px;
+    border: 7px solid blue;
+    border-radius: 20px;
+    margin-top: 50px;
+}
+.field{
+    margin-bottom:10px;
+}
+button{
+    border-radius: 20px;
+    width: 70px;
+    margin:auto;
+    background-image: linear-gradient(45deg,greenyellow,blue);
+    margin-top:10px;
+}
+body{
+    background-color: aqua;
+}
