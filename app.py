@@ -144,15 +144,15 @@ def tell():
         img_file=request.files["image"] 
         img_file.save(os.path.join(app.config['UPLOAD_FOLDER'],img_file.filename))
         path=os.path.join(pat,img_file.filename)
-        with open("vernelable_detect.pkl","rb") as file:             
-            model=pickle.load(file)
-        file.close()
-        img=Image.open(img_file.stream)
-        img=img.resize((256,256))
-        img=np.array(img)
-        img=img/255.0
-        img=np.expand_dims(img,axis=0)
-        ans=model.predict(img)
+        # with open("vernelable_detect.pkl","rb") as file:             
+        #     model=pickle.load(file)
+        # file.close()
+        # img=Image.open(img_file.stream)
+        # img=img.resize((256,256))
+        # img=np.array(img)
+        # img=img/255.0
+        # img=np.expand_dims(img,axis=0)
+        # ans=model.predict(img)
         with open("products.json") as file:
             data=json.load(file)
         file.close()    
@@ -180,10 +180,10 @@ def tell():
         seq.extend([0,0,0])
         pad_seq=pad_sequences([seq],maxlen=22)
         vector=pad_seq[0].tolist()
-        if ans>0.5:
-            data[f"id{digit+1}"]={"name":f"{name}","description":desc,"reviews":[],"clicks":0,"category":f"{cat}","price":price,"brand":f"{brand}","img":path,"vector":vector}
-        else: 
-            data[f"id{digit+1}"]={"name":f"{name}","description":desc,"reviews":[],"clicks":0,"category":f"{cat}","price":price,"brand":f"{brand}","img":'',"vector":vector} 
+        #if ans>0.5:
+        data[f"id{digit+1}"]={"name":f"{name}","description":desc,"reviews":[],"clicks":0,"category":f"{cat}","price":price,"brand":f"{brand}","img":path,"vector":vector}
+        # else: 
+        #     data[f"id{digit+1}"]={"name":f"{name}","description":desc,"reviews":[],"clicks":0,"category":f"{cat}","price":price,"brand":f"{brand}","img":'',"vector":vector} 
         with open("products.json","w") as file:
             json.dump(data,file)
         file.close()          
