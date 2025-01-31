@@ -207,8 +207,7 @@ def predict():
         return jsonify({"suggestions": [sugg]})      
     else:
         return render_template("products.html")              
-if __name__=="__main__":
-    app.run(debug=True)
+
 
 
    
