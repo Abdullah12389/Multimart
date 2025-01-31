@@ -48,4 +48,16 @@ flex-wrap: wrap;
 .Product{
 margin: 20px;
 }
-
+#chat_with_me{
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    bottom: 20px;
+    right: 20px;
+    border:3px solid blue;
+}
+#chat_with_me:hover{
+    width: 105px;
+    height: 105px;
+}

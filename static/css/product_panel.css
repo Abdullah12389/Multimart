@@ -1,0 +1,12 @@
+.recomendation{
+    display:flex;
+    flex-wrap: wrap;  
+}
+.rec_prod{
+    width: 280px;
+    height:450px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border: 1px solid wheat;
+    background-color: antiquewhite;
+}

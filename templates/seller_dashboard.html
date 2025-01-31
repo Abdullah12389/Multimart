@@ -7,30 +7,42 @@
     <link rel="stylesheet" href="{{url_for('static',filename='css/dashboard.css')}}">
 </head>
 <body>
-    <div class="profile">
-        <img src="../static/images/Seller.png" alt="error" width="60px" height="60px">
-        <a href="google.com">Google</a>
+    <div class="header">
+        <form action="/products" method="get">
+            <button type="submit">
+                Marketplace
+            </button>
+        </form>
+        <h1>Hi {{session['user']}} lets make day of others sweet</h1>
+        <form action="/tell" method="get">
+            <button type="submit">Add Products</button>
+        </form>
     </div>
-    <form action="/tell" method="post" enctype="multipart/form-data">
-        <input type="file" name="image" required>
-        <input type="submit">
-    </form>
-    <div class="sales">
-        <h3>Sales</h3>
-        <img src="" alt="">
+    <div class="analysis">
+        <div class="sales">
+            <h3>Sales</h3>
+            <img src="../static/images/sales.png" alt="sales" width="500px" hright="800px" id="sale">
+        </div>
+        <div class="review_stat">
+            <h3>Review Stats</h3>
+            <img src="{{url_for('graph')}}" alt="chart_reviews" width="700px" height="400px" id="rev_img">
+        </div>
     </div>
-    <div class="review_stat">
-        <h3>Review Stats</h3>
-        <img src="{{url_for('graph')}}" alt="chart_reviews" width="500px" height="400px">
-    </div>
+    <h2>Products</h2>
     <div class="products">
         {% for id in ids %}
         <div class="product">
-        <img src="" alt="" width="250px" height="250px">
-            <h5>{{product[id]["name"]}}</h5>
-            <h5>{{product[id]["category"]}}</h5>
-            <h5>{{product[id]["price"]}}</h5>
+        <img src="{{url_for('static',filename=product[id]['img'])}}" alt="image" width="250px" height="250px">
+            <h4>{{product[id]["name"]}}</h4>
+            <h4>{{product[id]["category"]}}</h4>
+            <h4>{{product[id]["price"]}}</h4>
         </div>
+        {% endfor %}
+    </div>
+    <h2>Reviews:</h2>
+    <div class="reviews">
+        {% for review in reviews %}
+            <div class="review">{{review}}</div>
         {% endfor %}
     </div>
 </body>

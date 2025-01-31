@@ -1,0 +1,72 @@
+{
+    "username1": {
+        "password": 123,
+        "products": [1000, 1001, 1002, 1003],
+        "category": {"clothing": 10, "electronics": 20, "shoes": 5},
+        "time on website": {"session1": 10, "session2": 20, "session3": 15, "session4": 30},
+        "clicks": {"prod_1000": 8, "prod_1001": 5, "prod_150": 10, "prod_220": 5},
+        "balance": 2000,
+        "reviews": {
+            "prod_1000": "Great quality, highly recommend!",
+            "prod_1001": "Very comfortable but the color faded after one wash.",
+            "prod_1002": "Not satisfied with the product. It broke within a week.",
+            "prod_1003": "Amazing value for money!"
+        }
+    },
+    "username2": {
+        "password": 456,
+        "products": [1010, 1015, 1020, 1025],
+        "category": {"clothing": 5, "electronics": 15, "shoes": 8},
+        "time on website": {"session1": 25, "session2": 30, "session3": 10, "session4": 20, "session5": 18},
+        "clicks": {"prod_1010": 6, "prod_1015": 7, "prod_180": 12, "prod_275": 8},
+        "balance": 1500,
+        "reviews": {
+            "prod_1010": "The fit was perfect, but the stitching came loose after a few wears.",
+            "prod_1015": "Worth the price, but arrived later than expected.",
+            "prod_1020": "Very durable and stylish, exactly what I needed.",
+            "prod_1025": "Good value, though the material feels a bit cheap."
+        }
+    },
+    "username3": {
+        "password": 789,
+        "products": [1030, 1035, 1040, 1045],
+        "category": {"clothing": 8, "electronics": 18, "shoes": 6},
+        "time on website": {"session1": 15, "session2": 25, "session3": 20, "session4": 22},
+        "clicks": {"prod_1030": 9, "prod_1035": 6, "prod_190": 14, "prod_310": 6},
+        "balance": 2500,
+        "reviews": {
+            "prod_1030": "Really comfy shoes, but they run a bit large.",
+            "prod_1035": "Good product but could use better packaging.",
+            "prod_1040": "Not worth the price, expected better performance.",
+            "prod_1045": "Sleek design, feels premium, but a bit tight."
+        }
+    },
+    "username4": {
+        "password": 234,
+        "products": [1050, 1055, 1060, 1065],
+        "category": {"clothing": 12, "electronics": 10, "shoes": 9},
+        "time on website": {"session1": 30, "session2": 20, "session3": 15, "session4": 10, "session5": 12},
+        "clicks": {"prod_1050": 5, "prod_1055": 8, "prod_200": 7, "prod_330": 5},
+        "balance": 1800,
+        "reviews": {
+            "prod_1050": "Not comfortable, returns were easy though.",
+            "prod_1055": "Nice quality, would buy again.",
+            "prod_1060": "Decent product but not as described.",
+            "prod_1065": "Good value, the texture could be improved."
+        }
+    },
+    "username5": {
+        "password": 567,
+        "products": [1070, 1075, 1080, 1085],
+        "category": {"clothing": 6, "electronics": 22, "shoes": 4},
+        "time on website": {"session1": 20, "session2": 15, "session3": 18, "session4": 25, "session5": 30, "session6": 22},
+        "clicks": {"prod_1070": 7, "prod_1075": 6, "prod_210": 11, "prod_350": 9},
+        "balance": 2200,
+        "reviews": {
+            "prod_1070": "Stylish and comfortable, but not very durable.",
+            "prod_1075": "The quality was better than I expected.",
+            "prod_1080": "Great sound, but could have been louder.",
+            "prod_1085": "Works as expected, but not exceptional."
+        }
+    }
+}

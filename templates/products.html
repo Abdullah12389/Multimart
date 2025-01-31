@@ -42,7 +42,8 @@
             font-size: large;
         }
         .but{
-        height: 30px;
+        height: 50px;
+        width:100px;
         border-radius: 10px;
         background-image: linear-gradient(orange,pink);
         }
@@ -63,8 +64,8 @@
     <div class="head">
         <div></div>
         <input type="text" id="searchBox" placeholder="Type something..." autocomplete="off">
-        <form action="/sign_up" method="get">
-            <button type="submit" class="but">Sign UP</button>
+        <form action="/seller" method="get">
+            <button type="submit" class="but">Dashboard</button>
         </form>
     </div>
     <div id="suggestions">hello</div>
@@ -154,14 +155,18 @@
         </select>
     </div>
     <div class="Products">
-        {% for product in products %}
+        {% for id in products %}
+        <a href="{{url_for("product_panel",product_id=id)}}">
         <div class="Product">
-            <img src="{{product[2]}}" alt="img" width="250px" height="250px">
-            <p>{{product[0]}}</p>
-            <p>{{product[1]}}</p>
+            <img src="{{url_for('static',filename=products[id]['img'])}}" alt="img" width="250px" height="250px">
+            <p>{{products[id]['name']}}</p>
+            <p>{{products[id]['price']}}</p>
+            <p>{{products[id]['brand']}}</p>
         </div>
         {%endfor%}
     </div>
-    <img src="../static/images/chat.png" alt="chat">
+    <form action="/chatbot" method="get">
+        <button type="submit" class="chat"><img src="../static/images/chat.png" alt="chat" id="chat_with_me"></button>
+    </form>
 </body>
 </html>

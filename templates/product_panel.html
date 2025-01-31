@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{product["name"]}}</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/product_panel.css')}}">
+</head>
+<body>
+    <img src="{{url_for('static',filename=product['img'])}}" alt="product">
+    <h1>{{product["name"]}}</h1>
+    <h2>{{product['price']}}</h2>
+    <h1>Description</h1>
+    <p>{{product['description']}}</p>
+    <h1>Recomendation<h1>
+    <div class="recomendation">
+        {% for id_pro in rec_pro %}
+        <a href="{{url_for('product_panel',product_id=id_pro)}}">
+            <div class="rec_prod">
+                <img src="{{url_for('static',filename=rec_pro[id_pro]['img'])}}" alt="image" width="250px" height="250px">
+                <div>{{rec_pro[id_pro]["name"]}}</div>
+                <div>{{rec_pro[id_pro]['brand']}}</div>
+                <div>{{rec_pro[id_pro]['price']}}</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</body>
+</html>

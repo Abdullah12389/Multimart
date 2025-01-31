@@ -1,7 +1,46 @@
-.profile{
+.analysis{
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
 }
-img{
-    border-radius: 100px;
+#sale{
+    margin-top: 70px;
+}
+.products{
+    display:flex;
+    flex-wrap: wrap;
+}
+h1{
+    text-align: center;
+    margin: auto;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+button{
+    border-radius: 20px;
+    background-image: linear-gradient(45deg,rgb(128, 128, 177),rgb(72, 72, 139));
+    color:ghostwhite;
+    height:50px;
+}
+button:active{
+    background-image: linear-gradient(135deg,rgb(128, 128, 177),rgb(72, 72, 139));
+}
+button:hover{
+    box-shadow: 3px 2px burlywood; 
+}
+.reviews{
+    display: flex;
+    flex-direction: column;
+}
+.review{
+    height:50px;
+    margin-bottom: 10px;
+    font-size: 30px;
+    background-color: antiquewhite;
+    padding: 30px;
+    border-radius: 10px;
+}
+h2{
+    font-size: 50px;
 }

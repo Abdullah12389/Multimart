@@ -8,34 +8,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 import tensorflow as tf
-from tensorflow.keras.utils import pad_sequences
-with open("chatbot_tokenizer.pkl","rb") as file:
-    vectorize=pickle.load(file)
-file.close()    
-with open("review_sentiment.pkl","rb") as file:
-    sentiment=pickle.load(file)
-file.close()   
-with open("tokens_review_sentiment.model","rb") as file:
-    token_sentiment=pickle.load(file)
-file.close()     
-with open("next_word_pred_model.pkl","rb") as file:
-    next_word=pickle.load(file)
-file.close()    
-with open("predict_fraud_lr.pkl","rb") as file:
-    fraud_lr=pickle.load(file)
-file.close()    
-with open("predict_fraud_rf.pkl","rb") as file:
-    fraud_rf=pickle.load(file)
-file.close()    
-with open("vernelable_detect.pkl","rb") as file:
-    detect_vernelable=pickle.load(file)
-file.close()    
-with open("tokenizer_next_word.pkl","rb") as file:
-    tokenize_next_word=pickle.load(file)
-file.close()    
+from tensorflow.keras.utils import pad_sequences 
 def similar(a,b):
     return np.linalg.matmul(a,b)/(np.linalg.norm(a)*np.linalg.norm(b))  
-def pred_next(text,how_many): 
+def pred_next(text,how_many):
+    with open("tokenizer_next_word.pkl","rb") as file:
+        tokenize_next_word=pickle.load(file)
+    file.close()  
+    with open("next_word_pred_model.pkl","rb") as file:
+        next_word=pickle.load(file)
+    file.close() 
     text=text.lower()
     for i in range(how_many):
         tokens=tokenize_next_word.texts_to_sequences([text])
@@ -45,6 +27,12 @@ def pred_next(text,how_many):
         text=text+" "+word
     return text
 def give_sentiment(text):
+    with open("tokens_review_sentiment.model","rb") as file:
+        token_sentiment=pickle.load(file)
+    file.close()  
+    with open("review_sentiment.pkl","rb") as file:
+        sentiment=pickle.load(file)
+    file.close()  
     tokens=word_tokenize(text)
     lemmatize=WordNetLemmatizer()
     lemma_tokens=[lemmatize.lemmatize(word) for word in tokens]
@@ -55,7 +43,10 @@ def give_sentiment(text):
         return 1
     else:
         return 0
-def ChatWithMe(question):   
+def ChatWithMe(question):  
+    with open("chatbot_tokenizer.pkl","rb") as file:
+        vectorize=pickle.load(file)
+    file.close()  
     sim=[]
     answers=np.load("answer_bank.npy")
     X=np.load("question_array.npy")
