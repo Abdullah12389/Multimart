@@ -19,7 +19,7 @@ app.secret_key="mykey"
 pair={}
 @app.route("/")
 def page():
-    return render_template("welcome.html")
+    return render_template("index.html")
 @app.route("/niche")
 def niche():
     return render_template("Niche.html") 
