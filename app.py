@@ -1,22 +1,35 @@
 from flask import Flask,render_template,request,Response,jsonify,session,redirect,url_for
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from keras.preprocessing.sequence import pad_sequences
 import matplotlib.pyplot as plt
 import pandas as pd
-from PIL import Image
 import pickle
 import os
 import json
 import re
+from PIL import Image
+import threading
 import algorithms as alg
 from io import BytesIO
 app=Flask(__name__)
 folder='static/images'
-pat='images'
 app.config["UPLOAD_FOLDER"]=folder
 app.secret_key="mykey"
 pair={}
+def pred_ver_and_save_data(img,img_file,data,digit,name,vector,brand,desc,cat,price):
+    try:
+        ans=alg.tell_vernelable(img)
+    except Exception as e:
+        ans=0.000001   
+    vector=list(vector)     
+    if ans>0.5:
+        data[f"id{digit+1}"]={"name":name,"description":desc,"reviews":[],"clicks":0,"category":cat,"price":price,"brand":brand,"img":f"images/{img_file.filename}","vector":vector}
+    else: 
+        data[f"id{digit+1}"]={"name":name,"description":desc,"reviews":[],"clicks":0,"category":cat,"price":price,"brand":brand,"img":'images/error.png',"vector":vector} 
+    with open("products.json","w") as file:
+        json.dump(data,file)
+    file.close() 
+    return 0
 @app.route("/")
 def page():
     return render_template("index.html")
@@ -65,7 +78,7 @@ def login():
         name=request.form['name']
         password=request.form['password']
         if name not in list(data):
-            return render_template("Signup.html")
+            return redirect(url_for("sign_up"))
         elif password=="":
             return render_template("login.html")
         elif int(password) == data[name]['password']:
@@ -73,7 +86,7 @@ def login():
             with open("products.json") as f:
                 pro=json.load(f)
             f.close()    
-            return render_template("products.html",products=pro)
+            return redirect(url_for("products",products=pro))
         else:
             return render_template("login.html")
     else:
@@ -93,7 +106,7 @@ def sign_up():
         f.close()    
         name=request.form['name']
         if name in list(data):
-            return render_template("login.html")
+            return redirect(url_for("login"))
         else:
             session['user']=name
             password=request.form['confirm']
@@ -101,7 +114,7 @@ def sign_up():
             with open("seller.json","w") as f:
                 json.dump(data,f)
             f.close()    
-            return render_template("Niche.html")
+            return redirect(url_for("niche"))
 @app.route("/graph")
 def graph():
     with open("seller.json") as file:
@@ -135,24 +148,17 @@ def seller():
         prod=json.load(file)
     file.close()
     return render_template("seller_dashboard.html",product=prod,ids=products,reviews=reviews)
-
 @app.route("/tell",methods=['POST',"GET"])
 def tell():
     if request.method=="GET":
         return render_template("add_product.html")
     else:
         img_file=request.files["image"] 
-        img_file.save(os.path.join(app.config['UPLOAD_FOLDER'],img_file.filename))
-        path=os.path.join(pat,img_file.filename)
-        # with open("vernelable_detect.pkl","rb") as file:             
-        #     model=pickle.load(file)
-        # file.close()
-        # img=Image.open(img_file.stream)
-        # img=img.resize((256,256))
-        # img=np.array(img)
-        # img=img/255.0
-        # img=np.expand_dims(img,axis=0)
-        # ans=model.predict(img)
+        image_data=img_file.read()
+        img=Image.open(BytesIO(image_data))
+        img=np.expand_dims(np.array(img.resize((256,256))).astype(np.float32)/255,axis=0)
+        image_path=os.path.join(app.config['UPLOAD_FOLDER'],img_file.filename)
+        img_file.save(image_path)
         with open("products.json") as file:
             data=json.load(file)
         file.close()    
@@ -177,17 +183,12 @@ def tell():
             json.dump(seller,file)
         file.close()    
         seq=[tokenizer.word_index[word] for word in vector.split() if word in tokenizer.word_index]
-        seq.extend([0,0,0])
-        pad_seq=pad_sequences([seq],maxlen=22)
-        vector=pad_seq[0].tolist()
-        #if ans>0.5:
-        data[f"id{digit+1}"]={"name":f"{name}","description":desc,"reviews":[],"clicks":0,"category":f"{cat}","price":price,"brand":f"{brand}","img":path,"vector":vector}
-        # else: 
-        #     data[f"id{digit+1}"]={"name":f"{name}","description":desc,"reviews":[],"clicks":0,"category":f"{cat}","price":price,"brand":f"{brand}","img":'',"vector":vector} 
-        with open("products.json","w") as file:
-            json.dump(data,file)
-        file.close()          
-        return render_template("seller_dashboard.html",ids=seller[session['user']]["products"],product=data,reviews=seller[session['user']]["reviews"])
+        if len(seq)<=22:
+            vector=np.pad(seq,(22-len(seq),0))
+        else:
+            vector=np.array(vector[:22])  
+        threading.Thread(target=pred_ver_and_save_data,args=(img,img_file,data,digit,name,vector,brand,desc,cat,price)).start()     
+        return render_template("seller_dashboard.html",ids=seller[session['user']]["products"][:-1],product=data,reviews=seller[session['user']]["reviews"])
 @app.route("/chatbot",methods=["GET","POST"])   
 def chatbot():
     if request.method=="GET":    
@@ -206,7 +207,9 @@ def predict():
         sugg=alg.pred_next(input_text,1)
         return jsonify({"suggestions": [sugg]})      
     else:
-        return render_template("products.html")              
+        return render_template("products.html")    
+if __name__=="__main__":
+    app.run(debug=True)           
 
 
 

@@ -1,45 +1,51 @@
-import os
 import numpy as np
 import pickle
+import json
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
-import nltk
+import numpy as np
+import onnxruntime as rt
+import io
+from PIL import Image
 from sklearn.metrics.pairwise import cosine_similarity
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-import tensorflow as tf
-from tensorflow.keras.utils import pad_sequences 
 def similar(a,b):
     return np.linalg.matmul(a,b)/(np.linalg.norm(a)*np.linalg.norm(b))  
 def pred_next(text,how_many):
-    with open("tokenizer_next_word.pkl","rb") as file:
-        tokenize_next_word=pickle.load(file)
-    file.close()  
-    with open("next_word_pred_model.pkl","rb") as file:
-        next_word=pickle.load(file)
-    file.close() 
+    with open("tokenz_next_word.json") as file:
+        tokenizer=json.load(file)
+    file.close()
     text=text.lower()
+    model=rt.InferenceSession("next_word.onnx",providers=["CPUExecutionProvider"])
     for i in range(how_many):
-        tokens=tokenize_next_word.texts_to_sequences([text])
-        pad=pad_sequences(tokens,maxlen=15,padding="pre")
-        index=np.argmax(next_word.predict(pad))
-        word=list(tokenize_next_word.word_index.keys())[index-1]
+        tokens=[tokenizer[token] for token in text.split() if token in tokenizer.keys()]
+        length=len(tokens)
+        if length<=14:
+            paded=np.pad(tokens,(14-length,0))
+        else:
+            paded=tokens[:14]
+        index=np.argmax(model.run(['dense'],{"input":np.expand_dims(paded.astype(np.int32),axis=0)}))
+        word=list(tokenizer)[index+1]
         text=text+" "+word
     return text
 def give_sentiment(text):
-    with open("tokens_review_sentiment.model","rb") as file:
-        token_sentiment=pickle.load(file)
-    file.close()  
-    with open("review_sentiment.pkl","rb") as file:
-        sentiment=pickle.load(file)
-    file.close()  
+    model=rt.InferenceSession('sentiment_analysis.onnx',providers=['CPUExecutionProvider'])
+    with open("sentiment_tokens.json") as file:
+        tokenizer=json.load(file)
+    file.close()    
     tokens=word_tokenize(text)
     lemmatize=WordNetLemmatizer()
     lemma_tokens=[lemmatize.lemmatize(word) for word in tokens]
-    vector=np.mean([token_sentiment.wv[word] for word in lemma_tokens],axis=0)
-    vector=np.expand_dims(np.expand_dims(vector,axis=0),axis=0)
-    pred=sentiment.predict(vector)
-    if pred>0.5:
+    vector=[tokenizer[word] for word in lemma_tokens if word in tokenizer.keys()]
+    if len(vector)<=100:
+        paded=np.pad(vector,(100-len(vector),0))
+    else:
+        paded=np.array(vector[:100])    
+    vector=np.expand_dims(paded,axis=0)
+    try:
+        pred=model.run(['dense_32'],{"input":vector})
+    except Exception as e:
+        return 0    
+    if pred[0][0][0]>0.5:
         return 1
     else:
         return 0
@@ -59,5 +65,13 @@ def ChatWithMe(question):
     else:
         index=np.argmax(sim)
         return answers[index]
+def tell_vernelable(img):
+    model=rt.InferenceSession("vernelable_detect.onnx",providers=['CPUExecutionProvider'])
+    pred=model.run(['dense_2'],{"input":img})
+    if pred[0][0][0]>0.5:
+        return 1
+    else:
+        return 0 
 
+   
 

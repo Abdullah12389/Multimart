@@ -35,13 +35,24 @@
 .answer{
     width:200px;
     height:100px;
+    overflow-y: scroll;
     background-color: greenyellow;
     border-radius: 20px;
     padding: 20px;
+}
+.answer::-webkit-scrollbar{
+    width: 0;
 }
 .chat{
     margin-bottom: 10px;
 }
 .chat_contain{
     margin-bottom:80px;
+}
+#back{
+    width:100px;
+    height:40px;
+    border-radius: 20px;
+    background-color: blue;
+    color: white;
 }
